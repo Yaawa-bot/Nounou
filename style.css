@@ -1,0 +1,95 @@
+body {
+    /* Le fond, la position des mots et la police */
+    background-color : #f8f9ff;
+    font-family :'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Le style des cartes blanches */
+.card {
+    /* La couleur de fond des cartes */
+    background-color: white;
+
+    /* pour les coins arrondis */
+    border-radius : 20px;
+
+    /* Espace à l'intérieur des boutons (entre le texte et le bord des boutons */
+    padding: 30px;
+
+    /* Pour éviter que les boutons ne s'élargissent sur l'entièreté de l'écran */
+    width: 90%;
+
+    /* Pour que ça ne soit pas trop large */
+    max-width: 400px;
+
+     /*Ajout d'une petite ombre  */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    /* Séparer les deux rubriques : Inscriptio et Connexion */
+    margin-bottom : 45px;
+    margin:20px auto;
+
+    /* Aligner le tout */
+    text-align: center;
+
+    display: block
+}
+
+/* Le style des boutons */
+.btn {
+    /* Mode "flexible" pour aligner les boutons */
+    display:flex;
+    
+    align-items: center;
+
+    /* "Attention, ne prenez pas toute la place" */
+    width: 100%;
+
+    padding: 23px;
+    border-radius: 15px;
+    text-align: left;
+    
+    /* Permet aux boutons de changer de couleur lorque la souris passe dessus */
+    transition : 0.3s;
+
+    /* Place une ligne autour du bouton */
+       /*Epaisseur Style Couleur  */
+    border : 1px solid black; 
+    
+    /* Montre à l'utilisateur que le bouton peut être appuyé */
+    cursor : pointer;
+}
+
+/* Le Bouton Noir (Bouton du Parent) */
+.btn-dark {
+    background-color: #0c0c0e;
+    color : white;
+}
+
+ /* Le Bouton Blanc (Bouton de la Nounou) */
+.btn-white {
+    background-color: white;
+    color : #333;
+}
+
+/* Organisation du texte dans le bouton */
+/* .text-group {
+
+    /* Aligne les objets */
+    /* display:flex; */
+
+/* } */ 
+/* .text-group strong {
+    font-size : 14px; */
+/* } */
+/* Styliser la ligne "Trouver la nounou idéale..." */
+/* .text-group span {
+    font-size: 12px;
+} */
+
+/* Les émojis */
+.icon {
+    font-size: 20px;
+}
