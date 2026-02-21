@@ -4,40 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tableau de bord Nounou</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    background: linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);
-    min-height:100vh; direction:ltr; padding:20px;
-}
-.container { max-width:800px; margin:0 auto; }
-.header { 
-    background: linear-gradient(90deg,#667eea 0%,#764ba2 100%);
-    color:white; padding:20px; border-radius:15px; margin-bottom:20px;
-    display:flex; justify-content:space-between; align-items:center;
-}
-.header h1 { font-size:24px; }
-.btn { padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
-.btn-secondary { background: rgba(255,255,255,0.2); color:white; }
-.btn-next { background: #28a745; color:white; margin-left:10px; }
-.tabs { display:flex; gap:10px; margin-bottom:20px; }
-.tab { flex:1; padding:15px; background:white; border:none; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer; transition:all 0.3s; }
-.tab.active { background: linear-gradient(90deg,#667eea 0%,#764ba2 100%); color:white; }
-.demand-en-attente { background:#e8f4fd; padding:15px; border-radius:12px; margin-bottom:20px; display:flex; gap:10px; align-items:center; font-weight:bold; }
-.card { background:white; padding:25px; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.1); margin-bottom:20px; }
-.card h3 { color:#333; margin-bottom:20px; font-size:20px; }
-.row { display:flex; gap:20px; margin-bottom:15px; }
-.field { flex:1; }
-.field label { display:block; margin-bottom:5px; color:#555; font-weight:bold; }
-.field-value { width:100%; padding:12px; background:#f8f9fa; border:2px solid #e9ecef; border-radius:8px; font-size:16px; color:#333; cursor:not-allowed; }
-.tab-content { display:none; }
-.tab-content.active { display:block; }
-.btn-primary { background: linear-gradient(90deg,#667eea 0%,#764ba2 100%); color:white; }
-.footer-note { text-align:center; color:#666; font-style:italic; margin-top:20px; background: rgba(255,255,255,0.7); padding:15px; border-radius:10px; }
-.data-source { font-size:12px; color:#888; margin-top:5px; }
-@media(max-width:600px){ .row{flex-direction:column;} .tabs{flex-direction:column;} }
-</style>
+<link rel="stylesheet" href="Dashboard_nounou.css">
 </head>
 <body>
 <div class="container">
@@ -135,7 +102,11 @@ body {
 // === JS Tableau de bord ===
 document.addEventListener('DOMContentLoaded', function(){
     const profil = JSON.parse(localStorage.getItem('nounouData'));
-    if(!profil){ alert('⚠️ Aucun profil trouvé. Retour à l’inscription'); window.location.href='index.html'; return; }
+    if(!profil){ 
+        alert('⚠️ Aucun profil trouvé. Retour à l\'inscription'); 
+        window.location.href='index.html'; 
+        return; 
+    }
     document.getElementById('nomUserDisplay').textContent = profil.nom + ' ' + profil.prenom;
     document.getElementById('messagesCount').textContent = profil.messagesCount;
     document.getElementById('demandesDisplay').textContent = profil.demandesCount;
@@ -161,9 +132,21 @@ function initierOnglets(){
     });
 }
 
-function prochainProfil(){ alert('🔄 Simulation multi-profils - Rechargez pour nouvelle nounou'); location.reload(); }
-function deconnexion(){ if(confirm('Déconnexion ?')){ localStorage.removeItem('nounouData'); location.href='index.html'; } }
-function validerProfil(){ alert('✅ Profil validé ! Prêt pour les demandes parents.'); }
+function prochainProfil(){ 
+    alert('🔄 Simulation multi-profils - Rechargez pour nouvelle nounou'); 
+    location.reload(); 
+}
+
+function deconnexion(){ 
+    if(confirm('Déconnexion ?')){ 
+        localStorage.removeItem('nounouData'); 
+        location.href='index.html'; 
+    } 
+}
+
+function validerProfil(){ 
+    alert('✅ Profil validé ! Prêt pour les demandes parents.'); 
+}
 </script>
 </body>
 </html>
