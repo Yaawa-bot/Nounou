@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- Mettre la page en français et/ou la recommander aux francophones -->
+<html lang="fr">
+    <head>
+        <link rel="stylesheet" href="style_DashboardParent.css">
+        <!-- Sert à utiliser correctement les accents -->
+         <meta charset="UTF-8">
+         <meta name="viewport" content ="width=device-width, initial-scale=1.0">
+        <title>Tableau de bord Parent</title>
+        <!-- faire link:css ici -->
+        <!-- Ajouter des emojis propres -->
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+          <div class="container">
+            <header class="header">
+                <div>
+                    <h1>Tableau de bord Parent</h1>
+                    <!-- Chercher comment mettre le nom du parent -->
+                    <p class="welcome">Bienvenue, <strong>nom_parent</strong></p>
+                </div>
+                <button class="logout-btn">Déconnexion</button>
+            </header>
+            <div class="card action-card">
+<div class="dashboard-container">
+    <div class="card">
+        <div class="card-icon">🔍</div>
+        <h3>Rechercher une nounou</h3>
+        <p class="subtitle">Trouvez une nounou</p>
+    </div>
+    <div class ="card">
+        <div class="card-icon">💬</div>
+        <h3>Mes conversations</h3>
+        <p class="subtitle">nombre_conversation conversation(s) active(s)</p>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <span>👨</span>
+            <h3>Mes informations</h3>
+        </div>
+        <div class="info-list">
+            <p><strong>ID: </strong>id_parent</p>
+            <p><strong>Âge: </strong>age_parent</p>
+            <p><strong>Téléphone: </strong>tel</p>
+            <p><strong>Email: </strong>email</p>
+            <p><strong>Lieu: </strong>home</p>
+            <p><strong>Profession: </strong>profession</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <span>👶</span>
+            <h3>Mes enfants</h3>
+            <button class="add-buttton">+ Ajouter un enfant</button>
+        </div>
+        <div class="empty-state">
+            <p>nombre_enf enregistré(s)</p>
+            <p class="hint">Cliquez sur "Ajouter un enfant" pour commencer</p>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>
+    
