@@ -1,38 +1,51 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "nanny";
+include 'db.php';
 
-$conn = mysqli_connect("localhost","root","","nanny");
+// Vérifier si la requête POST a été envoyée et si le bouton de soumission a été cliqué
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
-if (!$conn) {
-    die("Erreur de connexion : " . mysqli_connect_error());
-}
-
-//traitement du formulaire d'inscription 
-$message = "";
-$error = "";
-
-if ($_POST) {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    // Récupération des données du formulaire
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenoms'];
+    $age = $_POST['age'];
+    $telephone = $_POST['telephone'];
+    $email = $_POST['email'];
+    $adresse = $_POST['adresse'];
+    $prfession = $_POST['profession'];
     $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
-    // vérifier si email existe déjà
-    $check_email = mysqli_query($conn, "SELECT * FROM parents WHERE email='$email'");
-    if (mysqli_num_rows($check_email) > 0) {
-        $error = "Cet email existe déjà !";
-    } else {
-        // hacher le password et inserer 
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO parents (nom, prenom, lieu_hab, profession, age, tel, password, email) VALUES ('".mysqli_real_escape_string($conn, $_POST['nom'])."','".mysqli_real_escape_string($conn, $_POST['prenom'])."','".mysqli_real_escape_string($conn, $_POST['lieu_hab'])."','".mysqli_real_escape_string($conn, $_POST['profession'])."',".$_POST['age'].",'".mysqli_real_escape_string($conn, $_POST['tel'])."','$password_hash','$email')";
-
-        if (mysqli_query($conn, $sql)) {
-            $message = "Inscription réussie !!!";
-        } else { 
-            $error = "Erreur :" . mysqli_error($conn);
-        }
-    }
+// Vérifier si les mots de passe correspondent
+if ($password !== $confirm_password) {
+    die("Les mots de passe ne correspondent pas.");
 }
+
+// Sécuriser le mot de passe en le hachant
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+// Préparer la requête d'insertion
+$sql = "INSERT INTO parents (nom, prenoms, age, telephone, email, adresse, profession, password) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        // Préparer la requête avec PDO
+        $stmt = $pdo->prepare($sql);    
+
+        // Exécuter la requête avec les données du formulaire
+        $stmt->execute([
+            $nom,
+            $prenom, 
+            $age, 
+            $telephone, 
+            $email, 
+            $adresse, 
+            $prfession, 
+            $hashed_password
+        ]);
+
+        echo "Inscription réussie !";
+
+    } else {
+        echo "Aucune donnée reçue.";
+    }
 ?>

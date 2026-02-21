@@ -19,17 +19,17 @@
         <form id="formEtape1">
             <div class="form-group">
                 <label>Nom *</label>
-                <input type="text" id="nom" required>
+                <input type="text" id="nom" name="nom" required>
             </div>
             
             <div class="form-group">
                 <label>Prénoms *</label>
-                <input type="text" id="prenom" required>
+                <input type="text" id="prenom" name="prénoms" required>
             </div>
             
             <div class="form-group">
                 <label>Âge *</label>
-                <input type="number" id="age" min="18" max="65" required>
+                <input type="number" id="age" name="âge" min="18" max="65" required>
             </div>
             
             <div class="form-group">
@@ -42,15 +42,15 @@
             
             <div class="form-group">
                 <label>Téléphone *</label>
-                <input type="tel" id="telephone" required>
+                <input type="tel" id="telephone" name="téléphone" required>
             </div>
             
             <div class="form-group">
                 <label>Compétences * (choisir au moins 1)</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" value="Cuisine"> 🍳 Cuisine</label>
-                    <label><input type="checkbox" value="Ménage"> 🧹 Ménage</label>
-                    <label><input type="checkbox" value="Baby-sitting"> 👶 Baby-sitting</label>
+                    <label><input type="checkbox" name="compétences[]" value="Cuisine"> 🍳 Cuisine</label>
+                    <label><input type="checkbox" name="compétences[]" value="Ménage"> 🧹 Ménage</label>
+                    <label><input type="checkbox" name="compétences[]" value="Baby-sitting"> 👶 Baby-sitting</label>
                 </div>
             </div>
             
@@ -66,31 +66,31 @@
             <div class="progress-fill" style="width: 100%;"></div>
         </div>
         
-        <form id="formEtape2">
+        <form action="inscription_nounou.php" method="POST">
             <div class="form-group">
                 <label>Niveau Scolaire *</label>
-                <input type="text" id="niveauScolaire" required placeholder="Ex: BAC, Licence, Master">
+                <input type="text" id="niveauScolaire" name="niveauScolaire" required placeholder="Ex: BAC, Licence, Master">
             </div>
             
             <div class="form-group">
                 <label>Lieu de Résidence *</label>
-                <input type="text" id="lieuResidence" required placeholder="Ex: Zone 4, Abidjan">
+                <input type="text" id="lieuResidence" name="lieuResidence" required placeholder="Ex: Zone 4, Abidjan">
             </div>
             
             <div class="form-group">
                 <label>Tarif Horaire (FCFA) *</label>
-                <input type="number" id="tarifHoraire" min="1000" required placeholder="Ex: 2000">
+                <input type="number" id="tarifHoraire" name="tarifHoraire" min="1000" required placeholder="Ex: 2000">
             </div>
             
             <div class="form-group">
                 <label>Mot de passe *</label>
-                <input type="password" id="motDePasse" minlength="6" required>
+                <input type="password" id="motDePasse" name="motDePasse" minlength="6" required>
                 <div class="password-info">Minimum 6 caractères</div>
             </div>
             
             <div class="form-group">
                 <label>Confirmer mot de passe *</label>
-                <input type="password" id="confirmerMotDePasse" minlength="6" required>
+                <input type="password" id="confirmerMotDePasse" name="confirmerMotDePasse" minlength="6" required>
             </div>
             
             <div class="buttons">
