@@ -4,133 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inscription Parent - Étape 1 → Étape 2</title>
-
-<style> 
-/* CSS UNIFIÉ - PARFAIT */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 450px;
-}
-
-h1 { 
-    font-size: 22px; 
-    margin-bottom: 8px; 
-    color: #333;
-}
-
-h2 { 
-    font-size: 14px; 
-    color: #666; 
-    margin-bottom: 25px; 
-}
-
-.progress-bar {
-    height: 5px;
-    background: linear-gradient(90deg, #007bff, #0056b3);
-    border-radius: 3px;
-    margin-bottom: 25px;
-    transition: width 0.4s ease;
-}
-
-.form-row { 
-    display: flex; 
-    gap: 15px; 
-    margin-bottom: 15px; 
-}
-
-.form-group { 
-    flex: 1; 
-    margin-bottom: 20px; 
-}
-
-label { 
-    display: block; 
-    margin-bottom: 8px; 
-    font-weight: 600; 
-    color: #444;
-    font-size: 14px;
-}
-
-input {
-    width: 100%;
-    padding: 14px 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-input:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
-}
-
-.buttons { 
-    display: flex; 
-    gap: 15px; 
-    margin-top: 25px; 
-}
-
-button {
-    flex: 1;
-    padding: 14px 20px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.suivant, .inscrire { 
-    background: #000; 
-    color: white; 
-}
-
-.suivant:hover, .inscrire:hover { 
-    background: #333; 
-    transform: translateY(-2px);
-}
-
-.retour { 
-    background: #f0f0f0; 
-    color: #666;
-}
-
-.retour:hover { 
-    background: #e0e0e0; 
-}
-
-#page2 { display: none; }
-
-/* RESPONSIVE */
-@media (max-width: 500px) {
-    .form-row { flex-direction: column; gap: 0; }
-    .buttons { flex-direction: column; }
-}
-</style>
+<link rel="stylesheet" href="inscription_parent.css">
 </head>
 
 <body>
 
-<!-- CODE 1 - ÉTAPE 1 -->
+<!-- ÉTAPE 1 UNIQUEMENT AFFICHÉE AU DÉBUT -->
 <div class="container" id="page1">
     <h1>Inscription Parent - Étape 1/2</h1>
     <h2>Informations personnelles</h2>
@@ -167,8 +46,8 @@ button {
     </form>
 </div>
 
-<!-- CODE 2 - ÉTAPE 2 -->
-<div class="container" id="page2">
+<!-- ÉTAPE 2 - CACHÉE AU DÉBUT -->
+<div class="container" id="page2" style="display: none;">
     <h1>Inscription Parent - Étape 2/2</h1>
     <h2>Complétez votre profil</h2>
     <div class="progress-bar" style="width:100%"></div>
@@ -202,9 +81,6 @@ button {
 </div>
 
 <script>
-/* ========================================
-   NAVIGATION ÉTAPE 1 → ÉTAPE 2
-   ======================================== */
 function passerEtape2(event) {
     event.preventDefault();
     
@@ -228,34 +104,25 @@ function passerEtape2(event) {
         email: document.getElementById('email').value
     }));
     
+    // ✅ AFFICHER ÉTAPE 2 UNIQUEMENT
     document.getElementById('page1').style.display = 'none';
     document.getElementById('page2').style.display = 'block';
 }
 
-/* ========================================
-   RETOUR ÉTAPE 2 → ÉTAPE 1
-   ======================================== */
 function retourEtape1() {
     document.getElementById('page1').style.display = 'block';
     document.getElementById('page2').style.display = 'none';
 }
 
-/* ========================================
-   FINALISER INSCRIPTION
-   ======================================== */
 function finaliserInscription(event) {
     event.preventDefault();
     
-    // Données étape 1
     const etape1 = JSON.parse(sessionStorage.getItem('inscription_etape1'));
-    
-    // Données étape 2
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
     const adresse = document.getElementById('adresse').value.trim();
     const profession = document.getElementById('profession').value.trim();
     
-    // VALIDATIONS
     if (password !== confirmPassword) {
         alert('❌ Mots de passe différents');
         return;
@@ -271,7 +138,6 @@ function finaliserInscription(event) {
         return;
     }
     
-    // PROFIL FINAL
     const profil = {
         id: 'P' + Date.now().toString(36).substr(-8).toUpperCase(),
         nomComplet: etape1.nom + ' ' + etape1.prenoms,
@@ -285,13 +151,11 @@ function finaliserInscription(event) {
         nounousDispo: 5
     };
     
-    // SAUVEGARDE LOCALSTORAGE
     localStorage.setItem('parentData', JSON.stringify(profil));
     
-    // ✅ INSCRIPTION RÉUSSIE
-    alert(`🎉 Inscription réussie!\n\nID: ${profil.id}\nNom: ${profil.nomComplet}\n\nDonnées sauvegardées. Vous pouvez maintenant utiliser le tableau de bord séparément.`);
+    alert(`🎉 Inscription réussie!\n\nID: ${profil.id}\nNom: ${profil.nomComplet}\n\nDonnées sauvegardées.`);
     
-    // Reset formulaire
+    // RETOUR À L'ÉTAPE 1
     document.getElementById('page2').style.display = 'none';
     document.getElementById('page1').style.display = 'block';
     document.querySelector('#page1 form').reset();
