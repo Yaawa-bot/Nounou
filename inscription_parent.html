@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inscription Parent - Étape 1 → Étape 2 → Tableau de Bord</title>
-<link rel="stylesheet" href="style.css">
+<title>Inscription Parent - Étape 1 → Étape 2</title>
+<link rel="stylesheet" href="inscription_parent.css">
 </head>
 
 <body>
-<!-- CODE 1 - ÉTAPE 1 -->
+
+<!-- ÉTAPE 1 UNIQUEMENT AFFICHÉE AU DÉBUT -->
 <div class="container" id="page1">
     <h1>Inscription Parent - Étape 1/2</h1>
     <h2>Informations personnelles</h2>
@@ -45,13 +46,17 @@
     </form>
 </div>
 
-<!-- CODE 2 - ÉTAPE 2 -->
-<div class="container" id="page2">
+<!-- ÉTAPE 2 - CACHÉE AU DÉBUT -->
+<div class="container" id="page2" style="display: none;">
     <h1>Inscription Parent - Étape 2/2</h1>
     <h2>Complétez votre profil</h2>
     <div class="progress-bar" style="width:100%"></div>
 
+<<<<<<< HEAD
     <form action="inscriptionparent.php" method="POST">
+=======
+    <form onsubmit="finaliserInscription(event)">
+>>>>>>> 4dda8f9a0a78608265faa7d8c169bffa1dab873e
         <div class="form-group">
             <label>Lieu d'Habitation *</label>
             <input type="text" id="lieu_hab" name="lieu_hab" required placeholder="Ex: Zone 4, Abidjan">
@@ -79,6 +84,88 @@
     </form>
 </div>
 
-<script src="script.js"></script>
+<script>
+function passerEtape2(event) {
+    event.preventDefault();
+    
+    const nom = document.getElementById('nom').value.trim();
+    const prenoms = document.getElementById('prenoms').value.trim();
+    const age = parseInt(document.getElementById('age').value);
+    
+    if (!nom || !prenoms) {
+        alert('⚠️ Nom et prénoms obligatoires');
+        return;
+    }
+    
+    if (age < 18 || age > 100) {
+        alert('⚠️ Âge entre 18 et 100 ans');
+        return;
+    }
+    
+    sessionStorage.setItem('inscription_etape1', JSON.stringify({
+        nom, prenoms, age,
+        telephone: document.getElementById('telephone').value,
+        email: document.getElementById('email').value
+    }));
+    
+    // ✅ AFFICHER ÉTAPE 2 UNIQUEMENT
+    document.getElementById('page1').style.display = 'none';
+    document.getElementById('page2').style.display = 'block';
+}
+
+function retourEtape1() {
+    document.getElementById('page1').style.display = 'block';
+    document.getElementById('page2').style.display = 'none';
+}
+
+function finaliserInscription(event) {
+    event.preventDefault();
+    
+    const etape1 = JSON.parse(sessionStorage.getItem('inscription_etape1'));
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    const adresse = document.getElementById('adresse').value.trim();
+    const profession = document.getElementById('profession').value.trim();
+    
+    if (password !== confirmPassword) {
+        alert('❌ Mots de passe différents');
+        return;
+    }
+    
+    if (password.length < 6) {
+        alert('❌ Mot de passe trop court');
+        return;
+    }
+    
+    if (!adresse || !profession) {
+        alert('⚠️ Complétez tous les champs');
+        return;
+    }
+    
+    const profil = {
+        id: 'P' + Date.now().toString(36).substr(-8).toUpperCase(),
+        nomComplet: etape1.nom + ' ' + etape1.prenoms,
+        age: etape1.age + ' ans',
+        telephone: etape1.telephone,
+        email: etape1.email,
+        lieu: adresse,
+        profession: profession,
+        enfants: [],
+        conversations: 0,
+        nounousDispo: 5
+    };
+    
+    localStorage.setItem('parentData', JSON.stringify(profil));
+    
+    alert(`🎉 Inscription réussie!\n\nID: ${profil.id}\nNom: ${profil.nomComplet}\n\nDonnées sauvegardées.`);
+    
+    // RETOUR À L'ÉTAPE 1
+    document.getElementById('page2').style.display = 'none';
+    document.getElementById('page1').style.display = 'block';
+    document.querySelector('#page1 form').reset();
+    sessionStorage.removeItem('inscription_etape1');
+}
+</script>
+
 </body>
 </html>
