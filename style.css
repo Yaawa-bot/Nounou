@@ -27,7 +27,7 @@ body {
      /*Ajout d'une petite ombre  */
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 
-    /* Séparer les deux rubriques : Inscriptio et Connexion */
+    /* Séparer les deux rubriques : Inscription et Connexion */
     margin-bottom : 45px;
     margin:20px auto;
 
