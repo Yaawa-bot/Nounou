@@ -8,22 +8,21 @@ if (!isset($_SESSION[ 'nounou_id'])) {
     exit();
 }
 
-$nounou_id = $_SESSION['nounou_id'];
-
-//Receuil des infos nn
-$stmt = $pdo->prepare("SELECT nom, prenom, niveau_scolaire, lieu_residence, telephone, tarif_horaire, sexe, competences FROM nounous WHERE id = ?");
-$stmt->execute([$nounou_id]);
-$nounou = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$nounou) {
-    die("Profil introuvable.");
+//Connexion à la db
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=nanny;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Définir le mode d'erreur de PDO sur Exception
+} catch (PDOException $e) {
+    die("Erreur de connexion à la base de données: " . $e->getMessage()); 
 }
 
-//count des convers et demandes
-$stmt = $pdo->prepare("SELECT COUNT(*) as count FROM conversations WHERE nounou_id = ? AND status = 'active'");
-$stmt->execute([$nounou_id]);
-$nb_conversations = $stmt->fetch()['count'];//conversations n'existe pas dans la BDD donc le conteur sera à 0   
+// Récupérer les informations de nounou connecté
+$stmt = $pdo->prepare("SELECT nom, prenoms, age, telephone, email, adresse, profession, password FROM nounous WHERE id = ?");
+$stmt->execute([$_SESSION['nounou_id']]);
+$nounou = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$stmt = $pdo->prepare("SELECT COUNT(*) as count FROM demandes WHERE nounou_id = ? AND status = 'active'");
-$stmt->execute([$nounou_id]);
-$nb_demandes = $stmt->fetch()['count'];//demandes n'existe pas dans la BDD donc le conteur sera à 0
+if (!$parent) {
+    die("Parent non trouvé.");
+}
+
+?>
